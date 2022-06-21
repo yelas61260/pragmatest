@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.pragma.usermanager.model.entity.CityEntity;
-import com.pragma.usermanager.repository.RepositoryCity;
+import com.pragma.usermanager.repository.CityRepository;
 import com.pragma.usermanager.service.CityService;
 
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CityServiceImpl implements CityService {
 	
-	private final RepositoryCity repositoryCity;
+	private final CityRepository repositoryCity;
 	
 	@Override
 	public boolean exist(int cityId) {

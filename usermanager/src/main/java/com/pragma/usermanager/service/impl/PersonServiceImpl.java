@@ -9,7 +9,8 @@ import com.pragma.usermanager.mapper.PersonMapper;
 import com.pragma.usermanager.model.dto.PersonDTO;
 import com.pragma.usermanager.model.entity.PersonEntity;
 import com.pragma.usermanager.model.entity.constant.UserManagerGobalConstant;
-import com.pragma.usermanager.repository.RepositoryPerson;
+import com.pragma.usermanager.model.exception.notfound.UserManagerPersonNotFoundException;
+import com.pragma.usermanager.repository.PersonRepository;
 import com.pragma.usermanager.service.PersonService;
 import com.pragma.usermanager.service.PersonValidatorService;
 
@@ -19,7 +20,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class PersonServiceImpl implements PersonService{
 	
-	private final RepositoryPerson repositoryPerson;
+	private final PersonRepository repositoryPerson;
 	private final PersonValidatorService personValidatorService;
 	private final PersonMapper personMapper;
 
@@ -32,7 +33,7 @@ public class PersonServiceImpl implements PersonService{
 	public PersonDTO getById(int personId) {
 		Optional<PersonEntity> personFind = repositoryPerson.findById(personId);
 		if (personFind.isEmpty()) {
-			return null;
+			throw new UserManagerPersonNotFoundException();
 		}else {
 			return personMapper.toDto(personFind.get());
 		}
@@ -40,7 +41,7 @@ public class PersonServiceImpl implements PersonService{
 
 	@Override
 	public PersonDTO create(PersonDTO person) {
-		person.setId(UserManagerGobalConstant.PERSON_CREATOR_ID);
+		person.setId(UserManagerGobalConstant.ID_TO_CREATE_PERSON);
 		personValidatorService.validateToCreate(person);
 		
 		return personMapper.toDto(

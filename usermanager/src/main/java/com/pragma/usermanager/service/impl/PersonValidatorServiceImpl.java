@@ -11,7 +11,7 @@ import com.pragma.usermanager.model.exception.notfound.UserManagerCityNotFoundEx
 import com.pragma.usermanager.model.exception.notfound.UserManagerPersonNotFoundException;
 import com.pragma.usermanager.model.exception.notfound.UserManagerProfileNotFoundException;
 import com.pragma.usermanager.model.exception.required.UserManagerProfileRequiredException;
-import com.pragma.usermanager.repository.RepositoryPerson;
+import com.pragma.usermanager.repository.PersonRepository;
 import com.pragma.usermanager.service.CityService;
 import com.pragma.usermanager.service.PersonValidatorService;
 import com.pragma.usermanager.service.ProfileService;
@@ -22,7 +22,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class PersonValidatorServiceImpl implements PersonValidatorService {
 
-	private final RepositoryPerson repositoryPerson;
+	private final PersonRepository repositoryPerson;
 	private final CityService cityService;
 	private final ProfileService profileService;
 	
@@ -33,7 +33,7 @@ public class PersonValidatorServiceImpl implements PersonValidatorService {
 
 	@Override
 	public void validateToUpdate(PersonDTO personDTO) {
-		if (personDTO.getId() <= UserManagerGobalConstant.PERSON_CREATOR_ID) {
+		if (personDTO.getId() <= UserManagerGobalConstant.ID_TO_CREATE_PERSON) {
 			throw new UserManagerPersonNotFoundException();
 		}
 		Optional<PersonEntity> personExist = repositoryPerson.findById(personDTO.getId());

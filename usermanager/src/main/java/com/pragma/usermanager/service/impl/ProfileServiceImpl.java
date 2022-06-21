@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.pragma.usermanager.model.entity.ProfileEntity;
-import com.pragma.usermanager.repository.RepositoryProfile;
+import com.pragma.usermanager.repository.ProfileRepository;
 import com.pragma.usermanager.service.ProfileService;
 
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ProfileServiceImpl implements ProfileService {
 	
-	private final RepositoryProfile repositoryProfile;
+	private final ProfileRepository repositoryProfile;
 	
 	@Override
 	public boolean exist(int profileId) {

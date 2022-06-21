@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.pragma.usermanager.model.entity.CityEntity;
 
 @Repository
-public interface RepositoryCity extends CrudRepository<CityEntity, Integer> {
+public interface CityRepository extends CrudRepository<CityEntity, Integer> {
 
 }

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.pragma.usermanager.model.entity.ProfileEntity;
 
 @Repository
-public interface RepositoryProfile extends CrudRepository<ProfileEntity, Integer> {
+public interface ProfileRepository extends CrudRepository<ProfileEntity, Integer> {
 
 }
