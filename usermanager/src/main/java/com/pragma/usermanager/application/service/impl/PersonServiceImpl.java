@@ -1,41 +1,37 @@
-package com.pragma.usermanager.service.impl;
+package com.pragma.usermanager.application.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.stereotype.Service;
-
-import com.pragma.usermanager.mapper.PersonMapper;
-import com.pragma.usermanager.model.dto.PersonDTO;
-import com.pragma.usermanager.model.entity.PersonEntity;
-import com.pragma.usermanager.model.entity.constant.UserManagerGobalConstant;
-import com.pragma.usermanager.model.exception.notfound.UserManagerPersonNotFoundException;
-import com.pragma.usermanager.repository.PersonRepository;
-import com.pragma.usermanager.service.PersonService;
-import com.pragma.usermanager.service.PersonValidatorService;
+import com.pragma.usermanager.application.constant.UserManagerGobalConstant;
+import com.pragma.usermanager.application.dto.PersonDTO;
+import com.pragma.usermanager.application.exception.notfound.UserManagerPersonNotFoundException;
+import com.pragma.usermanager.application.mapper.PersonMapper;
+import com.pragma.usermanager.application.service.PersonService;
+import com.pragma.usermanager.application.service.PersonValidatorService;
+import com.pragma.usermanager.domain.entity.PersonEntity;
+import com.pragma.usermanager.domain.service.PersonDomainService;
 
 import lombok.AllArgsConstructor;
 
-@Service
 @AllArgsConstructor
 public class PersonServiceImpl implements PersonService{
 	
-	private final PersonRepository repositoryPerson;
+	private final PersonDomainService personDomainService;
 	private final PersonValidatorService personValidatorService;
 	private final PersonMapper personMapper;
 
 	@Override
 	public List<PersonDTO> getAll() {
-		return personMapper.toDtoList((List<PersonEntity>) repositoryPerson.findAll());
+		return personMapper.toDtoList(personDomainService.getAll());
 	}
 
 	@Override
 	public PersonDTO getById(int personId) {
-		Optional<PersonEntity> personFind = repositoryPerson.findById(personId);
-		if (personFind.isEmpty()) {
+		PersonEntity personFind = personDomainService.getById(personId);
+		if (personFind == null) {
 			throw new UserManagerPersonNotFoundException();
 		}else {
-			return personMapper.toDto(personFind.get());
+			return personMapper.toDto(personFind);
 		}
 	}
 
@@ -45,7 +41,7 @@ public class PersonServiceImpl implements PersonService{
 		personValidatorService.validateToCreate(person);
 		
 		return personMapper.toDto(
-				repositoryPerson.save(personMapper.toEntity(person))
+				personDomainService.create(personMapper.toEntity(person))
 				);
 	}
 
@@ -54,7 +50,7 @@ public class PersonServiceImpl implements PersonService{
 		personValidatorService.validateToUpdate(person);
 		
 		return personMapper.toDto(
-				repositoryPerson.save(personMapper.toEntity(person))
+				personDomainService.update(personMapper.toEntity(person))
 				);
 	}
 

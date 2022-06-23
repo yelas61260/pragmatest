@@ -1,4 +1,4 @@
-package com.pragma.usermanager.model.entity.constant;
+package com.pragma.usermanager.application.constant;
 
 public class UserManagerGobalConstant {
 

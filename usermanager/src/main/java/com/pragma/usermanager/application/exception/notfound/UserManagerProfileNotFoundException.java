@@ -1,6 +1,6 @@
-package com.pragma.usermanager.model.exception.notfound;
+package com.pragma.usermanager.application.exception.notfound;
 
-import com.pragma.usermanager.model.exception.UserManagerException;
+import com.pragma.usermanager.application.exception.UserManagerException;
 
 public class UserManagerProfileNotFoundException extends UserManagerException {
 

@@ -1,4 +1,4 @@
-package com.pragma.usermanager.model.exception;
+package com.pragma.usermanager.application.exception;
 
 public class UserManagerException extends RuntimeException {
 

@@ -1,12 +1,12 @@
-package com.pragma.usermanager.controller.exception;
+package com.pragma.usermanager.infrastructure.controller.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.pragma.usermanager.model.dto.ResponseDTO;
-import com.pragma.usermanager.model.exception.*;
+import com.pragma.usermanager.application.dto.ResponseDTO;
+import com.pragma.usermanager.application.exception.UserManagerException;
 
 @ControllerAdvice
 public class ExceptionGlobalHandler {

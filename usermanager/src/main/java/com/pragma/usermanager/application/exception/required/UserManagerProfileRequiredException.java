@@ -1,6 +1,6 @@
-package com.pragma.usermanager.model.exception.required;
+package com.pragma.usermanager.application.exception.required;
 
-import com.pragma.usermanager.model.exception.UserManagerException;
+import com.pragma.usermanager.application.exception.UserManagerException;
 
 public class UserManagerProfileRequiredException extends UserManagerException {
 

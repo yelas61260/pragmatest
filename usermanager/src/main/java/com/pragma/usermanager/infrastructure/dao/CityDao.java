@@ -1,11 +1,9 @@
-package com.pragma.usermanager.repository;
+package com.pragma.usermanager.infrastructure.dao;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
-import com.pragma.usermanager.model.entity.CityEntity;
+import com.pragma.usermanager.domain.entity.CityEntity;
 
-@Repository
-public interface CityRepository extends CrudRepository<CityEntity, Integer> {
+public interface CityDao extends CrudRepository<CityEntity, Integer> {
 
 }

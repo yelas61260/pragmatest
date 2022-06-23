@@ -1,4 +1,4 @@
-package com.pragma.usermanager.model.dto;
+package com.pragma.usermanager.application.dto;
 
 import java.io.Serializable;
 import java.util.Date;

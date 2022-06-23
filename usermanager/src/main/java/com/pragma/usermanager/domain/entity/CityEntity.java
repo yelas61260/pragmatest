@@ -1,4 +1,4 @@
-package com.pragma.usermanager.model.entity;
+package com.pragma.usermanager.domain.entity;
 
 import java.util.Set;
 

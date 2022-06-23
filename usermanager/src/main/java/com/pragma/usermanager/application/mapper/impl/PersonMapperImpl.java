@@ -1,13 +1,13 @@
-package com.pragma.usermanager.mapper.impl;
+package com.pragma.usermanager.application.mapper.impl;
 
 import org.springframework.stereotype.Component;
 
-import com.pragma.usermanager.mapper.PersonMapper;
-import com.pragma.usermanager.model.dto.PersonDTO;
-import com.pragma.usermanager.model.entity.CityEntity;
-import com.pragma.usermanager.model.entity.PersonEntity;
-import com.pragma.usermanager.model.entity.ProfileEntity;
-import com.pragma.usermanager.model.entity.constant.UserManagerGobalConstant;
+import com.pragma.usermanager.application.constant.UserManagerGobalConstant;
+import com.pragma.usermanager.application.dto.PersonDTO;
+import com.pragma.usermanager.application.mapper.PersonMapper;
+import com.pragma.usermanager.domain.entity.CityEntity;
+import com.pragma.usermanager.domain.entity.PersonEntity;
+import com.pragma.usermanager.domain.entity.ProfileEntity;
 
 @Component
 public class PersonMapperImpl implements PersonMapper {

@@ -1,28 +1,23 @@
-package com.pragma.usermanager.service.impl;
+package com.pragma.usermanager.application.service.impl;
 
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-
-import com.pragma.usermanager.model.dto.PersonDTO;
-import com.pragma.usermanager.model.entity.PersonEntity;
-import com.pragma.usermanager.model.entity.constant.UserManagerGobalConstant;
-import com.pragma.usermanager.model.exception.notfound.UserManagerCityNotFoundException;
-import com.pragma.usermanager.model.exception.notfound.UserManagerPersonNotFoundException;
-import com.pragma.usermanager.model.exception.notfound.UserManagerProfileNotFoundException;
-import com.pragma.usermanager.model.exception.required.UserManagerProfileRequiredException;
-import com.pragma.usermanager.repository.PersonRepository;
-import com.pragma.usermanager.service.CityService;
-import com.pragma.usermanager.service.PersonValidatorService;
-import com.pragma.usermanager.service.ProfileService;
+import com.pragma.usermanager.application.constant.UserManagerGobalConstant;
+import com.pragma.usermanager.application.dto.PersonDTO;
+import com.pragma.usermanager.application.exception.notfound.UserManagerCityNotFoundException;
+import com.pragma.usermanager.application.exception.notfound.UserManagerPersonNotFoundException;
+import com.pragma.usermanager.application.exception.notfound.UserManagerProfileNotFoundException;
+import com.pragma.usermanager.application.exception.required.UserManagerProfileRequiredException;
+import com.pragma.usermanager.application.service.CityService;
+import com.pragma.usermanager.application.service.PersonValidatorService;
+import com.pragma.usermanager.application.service.ProfileService;
+import com.pragma.usermanager.domain.entity.PersonEntity;
+import com.pragma.usermanager.domain.service.PersonDomainService;
 
 import lombok.AllArgsConstructor;
 
-@Service
 @AllArgsConstructor
 public class PersonValidatorServiceImpl implements PersonValidatorService {
 
-	private final PersonRepository repositoryPerson;
+	private final PersonDomainService personDomainService;
 	private final CityService cityService;
 	private final ProfileService profileService;
 	
@@ -36,8 +31,8 @@ public class PersonValidatorServiceImpl implements PersonValidatorService {
 		if (personDTO.getId() <= UserManagerGobalConstant.ID_TO_CREATE_PERSON) {
 			throw new UserManagerPersonNotFoundException();
 		}
-		Optional<PersonEntity> personExist = repositoryPerson.findById(personDTO.getId());
-		if (personExist.isEmpty()) {
+		PersonEntity personExist = personDomainService.getById(personDTO.getId());
+		if (personExist == null) {
 			throw new UserManagerPersonNotFoundException();
 		}
 	}

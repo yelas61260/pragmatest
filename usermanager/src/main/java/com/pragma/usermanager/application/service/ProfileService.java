@@ -1,4 +1,4 @@
-package com.pragma.usermanager.service;
+package com.pragma.usermanager.application.service;
 
 public interface ProfileService {
 	

@@ -1,25 +1,18 @@
-package com.pragma.usermanager.service.impl;
+package com.pragma.usermanager.application.service.impl;
 
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-
-import com.pragma.usermanager.model.entity.CityEntity;
-import com.pragma.usermanager.repository.CityRepository;
-import com.pragma.usermanager.service.CityService;
+import com.pragma.usermanager.application.service.CityService;
+import com.pragma.usermanager.domain.service.CityDomainService;
 
 import lombok.AllArgsConstructor;
 
-@Service
 @AllArgsConstructor
 public class CityServiceImpl implements CityService {
 	
-	private final CityRepository repositoryCity;
+	private final CityDomainService cityDomainService;
 	
 	@Override
 	public boolean exist(int cityId) {
-		Optional<CityEntity> cityEntity = this.repositoryCity.findById(cityId);
-		return !cityEntity.isEmpty();
+		return cityDomainService.exist(cityId);
 	}
 
 }
