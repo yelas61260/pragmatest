@@ -1,6 +1,6 @@
-package com.pragma.imagemanager.model.exception.conflict;
+package com.pragma.imagemanager.application.exception.conflict;
 
-import com.pragma.imagemanager.model.exception.ImageManagerException;
+import com.pragma.imagemanager.application.exception.ImageManagerException;
 
 public class ImageManagerResourceIdInvalidException extends ImageManagerException {
 

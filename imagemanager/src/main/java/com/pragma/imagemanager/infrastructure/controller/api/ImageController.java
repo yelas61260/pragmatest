@@ -1,4 +1,4 @@
-package com.pragma.imagemanager.controller;
+package com.pragma.imagemanager.infrastructure.controller.api;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.pragma.imagemanager.model.dto.ImageDTO;
-import com.pragma.imagemanager.model.dto.ResponseDTO;
-import com.pragma.imagemanager.service.ImageService;
+import com.pragma.imagemanager.application.dto.ImageDTO;
+import com.pragma.imagemanager.application.dto.ResponseDTO;
+import com.pragma.imagemanager.application.service.ImageService;
 
 import lombok.AllArgsConstructor;
 

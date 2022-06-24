@@ -1,6 +1,6 @@
-package com.pragma.imagemanager.model.exception.notfound;
+package com.pragma.imagemanager.application.exception.notfound;
 
-import com.pragma.imagemanager.model.exception.ImageManagerException;
+import com.pragma.imagemanager.application.exception.ImageManagerException;
 
 public class ImageManagerNotFoundException extends ImageManagerException {
 

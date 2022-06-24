@@ -1,4 +1,4 @@
-package com.pragma.imagemanager.model.exception;
+package com.pragma.imagemanager.application.exception;
 
 public class ImageManagerException extends RuntimeException {
 	

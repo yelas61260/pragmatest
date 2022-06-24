@@ -1,8 +1,8 @@
-package com.pragma.imagemanager.service;
+package com.pragma.imagemanager.application.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.pragma.imagemanager.model.dto.ImageDTO;
+import com.pragma.imagemanager.application.dto.ImageDTO;
 
 public interface ImageService {
 	

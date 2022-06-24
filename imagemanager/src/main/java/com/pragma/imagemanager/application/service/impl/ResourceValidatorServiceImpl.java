@@ -1,12 +1,12 @@
-package com.pragma.imagemanager.service.impl;
+package com.pragma.imagemanager.application.service.impl;
 
-import org.springframework.stereotype.Service;
+import com.pragma.imagemanager.application.constant.ImageResourceType;
+import com.pragma.imagemanager.application.exception.notfound.ImageManagerResourceTypeNotFoundException;
+import com.pragma.imagemanager.application.service.ResourceValidatorService;
 
-import com.pragma.imagemanager.model.constant.ImageResourceType;
-import com.pragma.imagemanager.model.exception.notfound.ImageManagerResourceTypeNotFoundException;
-import com.pragma.imagemanager.service.ResourceValidatorService;
+import lombok.AllArgsConstructor;
 
-@Service
+@AllArgsConstructor
 public class ResourceValidatorServiceImpl implements ResourceValidatorService {
 
 	@Override

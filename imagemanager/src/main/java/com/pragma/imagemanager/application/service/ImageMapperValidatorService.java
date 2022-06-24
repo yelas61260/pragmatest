@@ -1,7 +1,7 @@
-package com.pragma.imagemanager.service;
+package com.pragma.imagemanager.application.service;
 
-import com.pragma.imagemanager.model.dto.ImageDTO;
-import com.pragma.imagemanager.model.entity.ImageEntity;
+import com.pragma.imagemanager.application.dto.ImageDTO;
+import com.pragma.imagemanager.domain.entity.ImageEntity;
 
 public interface ImageMapperValidatorService {
 	

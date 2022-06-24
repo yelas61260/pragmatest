@@ -1,4 +1,4 @@
-package com.pragma.imagemanager.model.constant;
+package com.pragma.imagemanager.application.constant;
 
 public class ImageManagerGlobalConstant {
 	

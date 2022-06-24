@@ -1,31 +1,28 @@
-package com.pragma.imagemanager.service.impl;
+package com.pragma.imagemanager.application.service.impl;
 
 import java.io.IOException;
 import java.util.Base64;
-import java.util.Optional;
 
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.pragma.imagemanager.mapper.ImageMapper;
-import com.pragma.imagemanager.model.dto.ImageDTO;
-import com.pragma.imagemanager.model.entity.ImageEntity;
-import com.pragma.imagemanager.model.exception.conflict.ImageManagerImageConvertException;
-import com.pragma.imagemanager.model.exception.conflict.ImageManagerImageExistException;
-import com.pragma.imagemanager.model.exception.notfound.ImageManagerImageNotFoundException;
-import com.pragma.imagemanager.repository.ImageRepository;
-import com.pragma.imagemanager.service.ImageMapperValidatorService;
-import com.pragma.imagemanager.service.ImageService;
+import com.pragma.imagemanager.application.dto.ImageDTO;
+import com.pragma.imagemanager.application.exception.conflict.ImageManagerImageConvertException;
+import com.pragma.imagemanager.application.exception.conflict.ImageManagerImageExistException;
+import com.pragma.imagemanager.application.exception.notfound.ImageManagerImageNotFoundException;
+import com.pragma.imagemanager.application.mapper.ImageMapper;
+import com.pragma.imagemanager.application.service.ImageMapperValidatorService;
+import com.pragma.imagemanager.application.service.ImageService;
+import com.pragma.imagemanager.domain.entity.ImageEntity;
+import com.pragma.imagemanager.domain.service.ImageDomainService;
 
 import lombok.AllArgsConstructor;
 
-@Service
 @AllArgsConstructor
 public class ImageServiceImpl implements ImageService {
 	
-	private ImageRepository imageRepository;
-	private ImageMapperValidatorService imageMapperValidatorService;
-	private ImageMapper imageMapper;
+	private final ImageDomainService imageDomainService;
+	private final ImageMapperValidatorService imageMapperValidatorService;
+	private final ImageMapper imageMapper;
 
 	private String convertImageFileToBase64String(byte[] imageFile) {
 		try {
@@ -55,11 +52,11 @@ public class ImageServiceImpl implements ImageService {
 
 	@Override
 	public ImageDTO getById(String imageId) {
-		Optional<ImageEntity> image = imageRepository.findById(imageId);
-		if (image.isEmpty()) {
+		ImageEntity image = imageDomainService.getById(imageId);
+		if (image == null) {
 			throw new ImageManagerImageNotFoundException();
 		}else {
-			return this.convertEntityToDto(image.get());
+			return this.convertEntityToDto(image);
 		}
 	}
 
@@ -77,9 +74,10 @@ public class ImageServiceImpl implements ImageService {
 			throw new ImageManagerImageConvertException();
 		}
 		
-		ImageEntity imageEntity = this.convertDtoToEntity(imageDTO);
-		if (!imageRepository.existsById(imageEntity.getId())) {
-			return this.convertEntityToDto(imageRepository.insert(imageEntity));
+		ImageEntity imageEntity = this.convertDtoToEntity(imageDTO);		
+		ImageEntity imageEntityFind = imageDomainService.getById(imageEntity.getId());
+		if (imageEntityFind == null) {
+			return this.convertEntityToDto(imageDomainService.create(imageEntity));
 		} else {
 			throw new ImageManagerImageExistException();
 		}
@@ -100,8 +98,9 @@ public class ImageServiceImpl implements ImageService {
 		}
 		
 		ImageEntity imageEntity = this.convertDtoToEntity(imageDTO);
-		if (imageRepository.existsById(imageEntity.getId())) {
-			return this.convertEntityToDto(imageRepository.save(imageEntity));
+		ImageEntity imageEntityFind = imageDomainService.getById(imageEntity.getId());
+		if (imageEntityFind != null) {
+			return this.convertEntityToDto(imageDomainService.update(imageEntity));
 		} else {
 			throw new ImageManagerImageNotFoundException();
 		}

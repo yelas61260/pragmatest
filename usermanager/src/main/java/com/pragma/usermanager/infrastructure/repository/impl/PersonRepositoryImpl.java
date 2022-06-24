@@ -1,4 +1,4 @@
-package com.pragma.usermanager.infrastructure.repository;
+package com.pragma.usermanager.infrastructure.repository.impl;
 
 import java.util.List;
 import java.util.Optional;

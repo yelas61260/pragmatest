@@ -1,4 +1,4 @@
-package com.pragma.imagemanager.model.exception.notfound;
+package com.pragma.imagemanager.application.exception.notfound;
 
 public class ImageManagerResourceTypeNotFoundException extends ImageManagerNotFoundException {
 

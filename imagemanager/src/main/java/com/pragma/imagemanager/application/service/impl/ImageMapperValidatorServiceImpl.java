@@ -1,21 +1,18 @@
-package com.pragma.imagemanager.service.impl;
+package com.pragma.imagemanager.application.service.impl;
 
-import org.springframework.stereotype.Service;
-
-import com.pragma.imagemanager.model.constant.ImageManagerGlobalConstant;
-import com.pragma.imagemanager.model.dto.ImageDTO;
-import com.pragma.imagemanager.model.entity.ImageEntity;
-import com.pragma.imagemanager.model.exception.conflict.ImageManagerResourceIdInvalidException;
-import com.pragma.imagemanager.service.ImageMapperValidatorService;
-import com.pragma.imagemanager.service.ResourceValidatorService;
+import com.pragma.imagemanager.application.constant.ImageManagerGlobalConstant;
+import com.pragma.imagemanager.application.dto.ImageDTO;
+import com.pragma.imagemanager.application.exception.conflict.ImageManagerResourceIdInvalidException;
+import com.pragma.imagemanager.application.service.ImageMapperValidatorService;
+import com.pragma.imagemanager.application.service.ResourceValidatorService;
+import com.pragma.imagemanager.domain.entity.ImageEntity;
 
 import lombok.AllArgsConstructor;
 
-@Service
 @AllArgsConstructor
 public class ImageMapperValidatorServiceImpl implements ImageMapperValidatorService {
 	
-	private ResourceValidatorService resourceValidatorService;
+	private final ResourceValidatorService resourceValidatorService;
 
 	@Override
 	public void toDto(ImageEntity imageEntity) {

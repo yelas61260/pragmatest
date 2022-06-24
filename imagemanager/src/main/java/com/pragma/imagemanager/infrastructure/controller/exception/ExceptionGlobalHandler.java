@@ -1,13 +1,13 @@
-package com.pragma.imagemanager.controller.exception;
+package com.pragma.imagemanager.infrastructure.controller.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.pragma.imagemanager.model.dto.ResponseDTO;
-import com.pragma.imagemanager.model.exception.conflict.ImageManagerConflictException;
-import com.pragma.imagemanager.model.exception.notfound.ImageManagerNotFoundException;
+import com.pragma.imagemanager.application.dto.ResponseDTO;
+import com.pragma.imagemanager.application.exception.conflict.ImageManagerConflictException;
+import com.pragma.imagemanager.application.exception.notfound.ImageManagerNotFoundException;
 
 @ControllerAdvice
 public class ExceptionGlobalHandler {

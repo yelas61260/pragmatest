@@ -1,9 +1,9 @@
-package com.pragma.imagemanager.repository;
+package com.pragma.imagemanager.infrastructure.dao;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.pragma.imagemanager.model.entity.ImageEntity;
+import com.pragma.imagemanager.domain.entity.ImageEntity;
 
-public interface ImageRepository extends MongoRepository<ImageEntity, String> {
+public interface ImageDao extends MongoRepository<ImageEntity, String> {
 
 }

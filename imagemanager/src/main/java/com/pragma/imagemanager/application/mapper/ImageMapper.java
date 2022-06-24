@@ -1,9 +1,9 @@
-package com.pragma.imagemanager.mapper;
+package com.pragma.imagemanager.application.mapper;
 
 import org.mapstruct.Mapper;
 
-import com.pragma.imagemanager.model.dto.ImageDTO;
-import com.pragma.imagemanager.model.entity.ImageEntity;
+import com.pragma.imagemanager.application.dto.ImageDTO;
+import com.pragma.imagemanager.domain.entity.ImageEntity;
 
 @Mapper
 public interface ImageMapper {

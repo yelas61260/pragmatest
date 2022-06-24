@@ -1,12 +1,12 @@
-package com.pragma.imagemanager.mapper.impl;
+package com.pragma.imagemanager.application.mapper.impl;
 
 import org.springframework.stereotype.Component;
 
-import com.pragma.imagemanager.mapper.ImageMapper;
-import com.pragma.imagemanager.model.constant.ImageManagerGlobalConstant;
-import com.pragma.imagemanager.model.constant.ImageResourceType;
-import com.pragma.imagemanager.model.dto.ImageDTO;
-import com.pragma.imagemanager.model.entity.ImageEntity;
+import com.pragma.imagemanager.application.constant.ImageManagerGlobalConstant;
+import com.pragma.imagemanager.application.constant.ImageResourceType;
+import com.pragma.imagemanager.application.dto.ImageDTO;
+import com.pragma.imagemanager.application.mapper.ImageMapper;
+import com.pragma.imagemanager.domain.entity.ImageEntity;
 
 @Component
 public class ImageMapperImpl implements ImageMapper {
