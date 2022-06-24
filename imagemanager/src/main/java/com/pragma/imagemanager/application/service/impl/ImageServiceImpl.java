@@ -5,24 +5,21 @@ import java.util.Base64;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.pragma.imagemanager.application.dto.ImageDTO;
+import com.pragma.imagemanager.application.dto.entity.ImageDTO;
 import com.pragma.imagemanager.application.exception.conflict.ImageManagerImageConvertException;
 import com.pragma.imagemanager.application.exception.conflict.ImageManagerImageExistException;
 import com.pragma.imagemanager.application.exception.notfound.ImageManagerImageNotFoundException;
-import com.pragma.imagemanager.application.mapper.ImageMapper;
-import com.pragma.imagemanager.application.service.ImageMapperValidatorService;
 import com.pragma.imagemanager.application.service.ImageService;
-import com.pragma.imagemanager.domain.entity.ImageEntity;
-import com.pragma.imagemanager.domain.service.ImageDomainService;
+import com.pragma.imagemanager.application.service.ImageValidatorService;
+import com.pragma.imagemanager.infrastructure.db.repository.ImageRepository;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class ImageServiceImpl implements ImageService {
 	
-	private final ImageDomainService imageDomainService;
-	private final ImageMapperValidatorService imageMapperValidatorService;
-	private final ImageMapper imageMapper;
+	private final ImageRepository imageRepository;
+	private final ImageValidatorService imageValidatorService;
 
 	private String convertImageFileToBase64String(byte[] imageFile) {
 		try {
@@ -37,26 +34,6 @@ public class ImageServiceImpl implements ImageService {
 			return Base64.getDecoder().decode(imageString);
 		} catch (Exception e) {
 			throw new ImageManagerImageConvertException();
-		}
-	}
-	
-	private ImageDTO convertEntityToDto(ImageEntity imageEntity) {
-		imageMapperValidatorService.toDto(imageEntity);
-		return imageMapper.toDto(imageEntity);
-	}
-	
-	private ImageEntity convertDtoToEntity(ImageDTO imageDTO) {
-		imageMapperValidatorService.toEntity(imageDTO);
-		return imageMapper.toEntity(imageDTO);
-	}
-
-	@Override
-	public ImageDTO getById(String imageId) {
-		ImageEntity image = imageDomainService.getById(imageId);
-		if (image == null) {
-			throw new ImageManagerImageNotFoundException();
-		}else {
-			return this.convertEntityToDto(image);
 		}
 	}
 
@@ -74,10 +51,11 @@ public class ImageServiceImpl implements ImageService {
 			throw new ImageManagerImageConvertException();
 		}
 		
-		ImageEntity imageEntity = this.convertDtoToEntity(imageDTO);		
-		ImageEntity imageEntityFind = imageDomainService.getById(imageEntity.getId());
+		imageValidatorService.validateImage(imageDTO);
+			
+		ImageDTO imageEntityFind = imageRepository.getById(imageDTO);
 		if (imageEntityFind == null) {
-			return this.convertEntityToDto(imageDomainService.create(imageEntity));
+			return imageRepository.create(imageDTO);
 		} else {
 			throw new ImageManagerImageExistException();
 		}
@@ -97,10 +75,11 @@ public class ImageServiceImpl implements ImageService {
 			throw new ImageManagerImageConvertException();
 		}
 		
-		ImageEntity imageEntity = this.convertDtoToEntity(imageDTO);
-		ImageEntity imageEntityFind = imageDomainService.getById(imageEntity.getId());
+		imageValidatorService.validateImage(imageDTO);
+
+		ImageDTO imageEntityFind = imageRepository.getById(imageDTO);
 		if (imageEntityFind != null) {
-			return this.convertEntityToDto(imageDomainService.update(imageEntity));
+			return imageRepository.update(imageDTO);
 		} else {
 			throw new ImageManagerImageNotFoundException();
 		}
@@ -113,9 +92,14 @@ public class ImageServiceImpl implements ImageService {
 				.resourceId(resourceId)
 				.build();
 		
-		ImageEntity imageEntity = this.convertDtoToEntity(imageDTO);
+		imageValidatorService.validateImage(imageDTO);
 		
-		return this.getById(imageEntity.getId());
+		ImageDTO image = imageRepository.getById(imageDTO);
+		if (image == null) {
+			throw new ImageManagerImageNotFoundException();
+		}else {
+			return image;
+		}
 	}
 
 	@Override

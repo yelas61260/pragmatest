@@ -1,4 +1,4 @@
-package com.pragma.imagemanager.application.dto;
+package com.pragma.imagemanager.application.dto.response;
 
 import java.sql.Timestamp;
 

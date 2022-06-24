@@ -18,13 +18,4 @@ public class ResourceValidatorServiceImpl implements ResourceValidatorService {
 		}
 	}
 
-	@Override
-	public void validateResourceTypeByPrefix(String resourcePrefix) {
-		ImageResourceType resourceType = 
-				ImageResourceType.findByPrefix(resourcePrefix);
-		if (resourceType == null) {
-			throw new ImageManagerResourceTypeNotFoundException();
-		}
-	}
-
 }

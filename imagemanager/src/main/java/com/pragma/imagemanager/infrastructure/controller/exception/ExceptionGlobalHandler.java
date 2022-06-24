@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.pragma.imagemanager.application.dto.ResponseDTO;
+import com.pragma.imagemanager.application.dto.response.ResponseDTO;
 import com.pragma.imagemanager.application.exception.conflict.ImageManagerConflictException;
 import com.pragma.imagemanager.application.exception.notfound.ImageManagerNotFoundException;
 

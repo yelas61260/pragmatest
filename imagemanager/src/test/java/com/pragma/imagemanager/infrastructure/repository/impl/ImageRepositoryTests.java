@@ -11,9 +11,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.pragma.imagemanager.domain.entity.ImageEntity;
-import com.pragma.imagemanager.domain.repository.ImageRepository;
-import com.pragma.imagemanager.infrastructure.dao.ImageDao;
+import com.pragma.imagemanager.application.dto.entity.ImageDTO;
+import com.pragma.imagemanager.infrastructure.db.dao.ImageDao;
+import com.pragma.imagemanager.infrastructure.db.entity.ImageMongoEntity;
+import com.pragma.imagemanager.infrastructure.db.mapper.ImageMongoEntityWithDtoMapper;
+import com.pragma.imagemanager.infrastructure.db.repository.ImageRepository;
+import com.pragma.imagemanager.infrastructure.db.repository.impl.ImageRepositoryImpl;
 
 @SpringBootTest
 public class ImageRepositoryTests {
@@ -21,58 +24,109 @@ public class ImageRepositoryTests {
 	@Mock
 	private ImageDao imageDao;
 	
+	@Mock
+	private ImageMongoEntityWithDtoMapper imageMongoEntityWithDtoMapper;
+	
 	private ImageRepository imageRepository;
 	
 	@BeforeEach
 	public void setup() {
-		imageRepository = new ImageRepositoryImpl(imageDao);
+		imageRepository = new ImageRepositoryImpl(imageDao, imageMongoEntityWithDtoMapper);
 		
-		ImageEntity imageEntity = ImageEntity.builder()
+		ImageMongoEntity imageEntity1 = ImageMongoEntity.builder()
 				.id("PI-1")
 				.bodyBase64("content")
 				.imageName("image")
+				.build();
+		ImageDTO imageDTO1 = ImageDTO.builder()
+				.associationType(1)
+				.resourceId(1)
+				.imageBase64("content")
+				.imageName("image")
+				.build();
+		ImageMongoEntity imageEntity2 = ImageMongoEntity.builder()
+				.id("PI-1")
+				.build();
+		ImageDTO imageDTO2 = ImageDTO.builder()
+				.associationType(1)
+				.resourceId(1)
+				.build();
+		ImageMongoEntity imageEntityError = ImageMongoEntity.builder()
+				.id("PI-0")
+				.build();
+		ImageDTO imageDTOError = ImageDTO.builder()
+				.associationType(1)
+				.resourceId(0)
 				.build();
 		
 		Mockito.when(imageDao.findById("PI-0"))
 		.thenReturn(Optional.empty());
 		Mockito.when(imageDao.findById("PI-1"))
-		.thenReturn(Optional.of(imageEntity));
-		Mockito.when(imageDao.insert(imageEntity))
-		.thenReturn(imageEntity);
-		Mockito.when(imageDao.save(imageEntity))
-		.thenReturn(imageEntity);
+		.thenReturn(Optional.of(imageEntity1));
+		Mockito.when(imageDao.insert(imageEntity1))
+		.thenReturn(imageEntity1);
+		Mockito.when(imageDao.save(imageEntity1))
+		.thenReturn(imageEntity1);
+		
+		Mockito.when(imageMongoEntityWithDtoMapper.toDto(imageEntity1))
+		.thenReturn(imageDTO1);
+		Mockito.when(imageMongoEntityWithDtoMapper.toMongoEntity(imageDTO1))
+		.thenReturn(imageEntity1);
+		Mockito.when(imageMongoEntityWithDtoMapper.toDto(imageEntity2))
+		.thenReturn(imageDTO2);
+		Mockito.when(imageMongoEntityWithDtoMapper.toMongoEntity(imageDTO2))
+		.thenReturn(imageEntity2);
+		
+
+		Mockito.when(imageMongoEntityWithDtoMapper.toDto(imageEntityError))
+		.thenReturn(imageDTOError);
+		Mockito.when(imageMongoEntityWithDtoMapper.toMongoEntity(imageDTOError))
+		.thenReturn(imageEntityError);
 	}
 	
 	@Test
 	public void getById() {
-		ImageEntity imageEntity1 = imageRepository.getById("PI-0");
-		assertNull(imageEntity1);
-		
-		ImageEntity imageEntity2 = imageRepository.getById("PI-1");
-		assertThat(imageEntity2.getId()).isEqualTo("PI-1");
-		assertThat(imageEntity2.getBodyBase64()).isEqualTo("content");
+		ImageDTO imageDTO1 = ImageDTO.builder()
+				.associationType(1)
+				.resourceId(0)
+				.build();
+		ImageDTO imageDTOResponse1 = imageRepository.getById(imageDTO1);
+		assertNull(imageDTOResponse1);
+
+		ImageDTO imageDTO2 = ImageDTO.builder()
+				.associationType(1)
+				.resourceId(1)
+				.build();
+		ImageDTO imageDTOResponse2 = imageRepository.getById(imageDTO2);
+		assertThat(imageDTOResponse2.getAssociationType()).isEqualTo(1);
+		assertThat(imageDTOResponse2.getResourceId()).isEqualTo(1);
+		assertThat(imageDTOResponse2.getImageBase64()).isEqualTo("content");
 	}
 	
 	@Test
 	public void create() {
-		ImageEntity imageEntityCreate = ImageEntity.builder()
-				.id("PI-1")
-				.bodyBase64("content")
+		ImageDTO imageDTO = ImageDTO.builder()
+				.associationType(1)
+				.resourceId(1)
+				.imageBase64("content")
 				.imageName("image")
 				.build();
-		ImageEntity imageEntity = imageRepository.create(imageEntityCreate);
-		assertThat(imageEntity.getId()).isEqualTo("PI-1");
+		ImageDTO imageDTOResponse = imageRepository.create(imageDTO);
+		assertThat(imageDTOResponse.getAssociationType()).isEqualTo(1);
+		assertThat(imageDTOResponse.getResourceId()).isEqualTo(1);
 	}
 	
 	@Test
 	public void update() {
-		ImageEntity imageEntityUpdate = ImageEntity.builder()
-				.id("PI-1")
-				.bodyBase64("content")
+		ImageDTO imageDTO = ImageDTO.builder()
+				.associationType(1)
+				.resourceId(1)
+				.imageBase64("content")
 				.imageName("image")
 				.build();
-		ImageEntity imageEntity = imageRepository.update(imageEntityUpdate);
-		assertThat(imageEntity.getId()).isEqualTo("PI-1");
+		ImageDTO imageDTOResponse = imageRepository.update(imageDTO);
+		assertThat(imageDTOResponse.getAssociationType()).isEqualTo(1);
+		assertThat(imageDTOResponse.getResourceId()).isEqualTo(1);
 	}
 
 }

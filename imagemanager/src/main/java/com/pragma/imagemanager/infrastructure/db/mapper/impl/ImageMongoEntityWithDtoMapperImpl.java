@@ -1,18 +1,18 @@
-package com.pragma.imagemanager.application.mapper.impl;
+package com.pragma.imagemanager.infrastructure.db.mapper.impl;
 
 import org.springframework.stereotype.Component;
 
 import com.pragma.imagemanager.application.constant.ImageManagerGlobalConstant;
 import com.pragma.imagemanager.application.constant.ImageResourceType;
-import com.pragma.imagemanager.application.dto.ImageDTO;
-import com.pragma.imagemanager.application.mapper.ImageMapper;
-import com.pragma.imagemanager.domain.entity.ImageEntity;
+import com.pragma.imagemanager.application.dto.entity.ImageDTO;
+import com.pragma.imagemanager.infrastructure.db.entity.ImageMongoEntity;
+import com.pragma.imagemanager.infrastructure.db.mapper.ImageMongoEntityWithDtoMapper;
 
 @Component
-public class ImageMapperImpl implements ImageMapper {
+public class ImageMongoEntityWithDtoMapperImpl implements ImageMongoEntityWithDtoMapper {
 
 	@Override
-	public ImageDTO toDto(ImageEntity imageEntity) {
+	public ImageDTO toDto(ImageMongoEntity imageEntity) {
 		String[] identifierSplit = imageEntity.getId().split(ImageManagerGlobalConstant.IMAGE_ID_SPLIT_CHART);
 
 		ImageResourceType resourceType = ImageResourceType
@@ -29,13 +29,13 @@ public class ImageMapperImpl implements ImageMapper {
 	}
 
 	@Override
-	public ImageEntity toEntity(ImageDTO imageDTO) {
+	public ImageMongoEntity toMongoEntity(ImageDTO imageDTO) {
 		ImageResourceType resourceType = 
 				ImageResourceType.findById(
 						imageDTO.getAssociationType()
 						);
 
-		return new ImageEntity(
+		return new ImageMongoEntity(
 				(
 						resourceType.getPrefix()+
 						ImageManagerGlobalConstant.IMAGE_ID_SPLIT_CHART+

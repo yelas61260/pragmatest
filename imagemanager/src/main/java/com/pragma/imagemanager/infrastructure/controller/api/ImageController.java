@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.pragma.imagemanager.application.dto.ImageDTO;
-import com.pragma.imagemanager.application.dto.ResponseDTO;
+import com.pragma.imagemanager.application.dto.entity.ImageDTO;
+import com.pragma.imagemanager.application.dto.response.ResponseDTO;
 import com.pragma.imagemanager.application.service.ImageService;
 
 import lombok.AllArgsConstructor;
