@@ -35,15 +35,15 @@ public class ImageMongoEntityWithDtoMapperImpl implements ImageMongoEntityWithDt
 						imageDTO.getAssociationType()
 						);
 
-		return new ImageMongoEntity(
-				(
+		return ImageMongoEntity.builder()
+				.id(
 						resourceType.getPrefix()+
 						ImageManagerGlobalConstant.IMAGE_ID_SPLIT_CHART+
 						imageDTO.getResourceId()
-						), 
-				imageDTO.getImageName(), 
-				imageDTO.getImageBase64()
-				);
+						)
+				.imageName(imageDTO.getImageName())
+				.bodyBase64(imageDTO.getImageBase64())
+				.build();
 	}
 
 }

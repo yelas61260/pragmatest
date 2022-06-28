@@ -1,8 +1,6 @@
 package com.pragma.usermanager.application.exception.notfound;
 
-import com.pragma.usermanager.application.exception.UserManagerException;
-
-public class UserManagerCityNotFoundException extends UserManagerException {
+public class UserManagerCityNotFoundException extends UserManagerNotFoundException {
 
 	/**
 	 * 

@@ -1,18 +1,18 @@
 package com.pragma.usermanager.application.service.impl;
 
 import com.pragma.usermanager.application.service.CityService;
-import com.pragma.usermanager.domain.service.CityDomainService;
+import com.pragma.usermanager.infrastructure.db.repository.CityRepository;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class CityServiceImpl implements CityService {
 	
-	private final CityDomainService cityDomainService;
+	private final CityRepository cityRepository;
 	
 	@Override
 	public boolean exist(int cityId) {
-		return cityDomainService.exist(cityId);
+		return cityRepository.exist(cityId);
 	}
 
 }

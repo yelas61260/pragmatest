@@ -5,8 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.pragma.usermanager.application.dto.ResponseDTO;
-import com.pragma.usermanager.application.exception.UserManagerException;
+import com.pragma.usermanager.application.dto.response.ResponseDTO;
+import com.pragma.usermanager.application.exception.conflict.UserManagerConflictException;
+import com.pragma.usermanager.application.exception.notfound.UserManagerNotFoundException;
 
 @ControllerAdvice
 public class ExceptionGlobalHandler {
@@ -23,10 +24,16 @@ public class ExceptionGlobalHandler {
 		return new ResponseEntity<ResponseDTO>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@ExceptionHandler(UserManagerException.class)
-	public ResponseEntity<ResponseDTO> notFoundException(UserManagerException e){
+	@ExceptionHandler(UserManagerNotFoundException.class)
+	public ResponseEntity<ResponseDTO> notFoundException(UserManagerNotFoundException e){
 		ResponseDTO response = new ResponseDTO(null, HttpStatus.NOT_FOUND.value(), "error", e.getLocalizedMessage());
 		return new ResponseEntity<ResponseDTO>(response, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(UserManagerConflictException.class)
+	public ResponseEntity<ResponseDTO> conflictException(UserManagerConflictException e){
+		ResponseDTO response = new ResponseDTO(null, HttpStatus.CONFLICT.value(), "error", e.getLocalizedMessage());
+		return new ResponseEntity<ResponseDTO>(response, HttpStatus.CONFLICT);
 	}
 
 }

@@ -18,12 +18,12 @@ public class ImageEntityWithDtoMapperImpl implements ImageEntityWithDtoMapper {
 
 	@Override
 	public ImageEntity toEntity(ImageDTO imageDTO) {
-		return new ImageEntity(
-				imageDTO.getAssociationType(), 
-				imageDTO.getResourceId(), 
-				imageDTO.getImageName(), 
-				imageDTO.getImageBase64()
-				);
+		return ImageEntity.builder()
+				.bodyBase64(imageDTO.getImageBase64())
+				.associationType(imageDTO.getAssociationType())
+				.resourceId(imageDTO.getResourceId())
+				.imageName(imageDTO.getImageName())
+				.build();
 	}
 
 }

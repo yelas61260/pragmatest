@@ -1,8 +1,6 @@
 package com.pragma.usermanager.application.exception.notfound;
 
-import com.pragma.usermanager.application.exception.UserManagerException;
-
-public class UserManagerPersonNotFoundException extends UserManagerException {
+public class UserManagerPersonNotFoundException extends UserManagerNotFoundException {
 
 	/**
 	 * 

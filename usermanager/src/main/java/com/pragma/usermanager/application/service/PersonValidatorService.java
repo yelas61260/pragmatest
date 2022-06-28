@@ -1,6 +1,6 @@
 package com.pragma.usermanager.application.service;
 
-import com.pragma.usermanager.application.dto.PersonDTO;
+import com.pragma.usermanager.application.dto.entity.PersonDTO;
 
 public interface PersonValidatorService {
 	

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pragma.usermanager.application.dto.PersonDTO;
-import com.pragma.usermanager.application.dto.ResponseDTO;
+import com.pragma.usermanager.application.dto.entity.PersonDTO;
+import com.pragma.usermanager.application.dto.response.ResponseDTO;
 import com.pragma.usermanager.application.service.PersonService;
 
 import lombok.AllArgsConstructor;

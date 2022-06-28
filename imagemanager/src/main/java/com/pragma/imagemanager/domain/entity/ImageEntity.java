@@ -1,10 +1,10 @@
 package com.pragma.imagemanager.domain.entity;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
+@Builder
 public class ImageEntity {
 
 	private int resourceId;
